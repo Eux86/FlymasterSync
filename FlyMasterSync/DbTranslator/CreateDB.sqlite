@@ -1,0 +1,18 @@
+﻿DROP TABLE IF EXISTS "Place";
+CREATE TABLE "Place" (
+	"Id"	INTEGER PRIMARY KEY AUTOINCREMENT,
+	"Name"	TEXT,
+	"Latitude"	TEXT,
+	"Longitude"	TEXT,
+	"AltitudeMeters"	INTEGER
+);
+
+DROP TABLE IF EXISTS Flight;
+CREATE TABLE Flight (
+	"Id" varchar(50) PRIMARY KEY,
+	"Date" integer,
+	"DurationSeconds" integer,
+	"Comments" LongText,
+	"TakeOffPlaceId" INTEGER,
+	FOREIGN KEY ("TakeOffPlaceId") REFERENCES Place("id")
+);

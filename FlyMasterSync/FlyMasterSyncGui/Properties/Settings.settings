@@ -1,0 +1,24 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="FlyMasterSyncGui.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="TracksFolder" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Tracks\</Value>
+    </Setting>
+    <Setting Name="TrackDbFilePath" Type="System.String" Scope="User">
+      <Value Profile="(Default)">db.csv</Value>
+    </Setting>
+    <Setting Name="PlacesDbFilePath" Type="System.String" Scope="User">
+      <Value Profile="(Default)">places.csv</Value>
+    </Setting>
+    <Setting Name="FlightLogWindowHeigh" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">400</Value>
+    </Setting>
+    <Setting Name="FlightLogWindowWidth" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">600</Value>
+    </Setting>
+    <Setting Name="UserDoaramaApiKey" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+  </Settings>
+</SettingsFile>

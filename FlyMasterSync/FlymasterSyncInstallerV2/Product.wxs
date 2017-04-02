@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+	<Product Id="*" Name="FlymasterSyncInstaller" Language="1033" Version="0.9.0.3" Manufacturer="EuxSoft" UpgradeCode="ded39eb1-db40-4b25-acf9-6d11d02db869">
+		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
+
+		<MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
+		<MediaTemplate />
+
+		<Directory Id="TARGETDIR" Name="SourceDir">
+			<Directory Id="ProgramFilesFolder">
+				<Directory Id="INSTALLFOLDER" Name="FlymasterSync" />
+			</Directory>
+		</Directory>
+  
+    <ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
+            <Component Id="FlymasterSyncGUI.exe" Guid="{E4F71F2D-B28D-4D27-80F3-40B5F2B81371}">
+                <File Id="FlymasterSyncGUI.exe" Source="..\FlymasterSyncGui\bin\Release\FlymasterSyncGui.exe" KeyPath="yes" Checksum="yes"/>
+            </Component>
+		</ComponentGroup>
+  
+    <Feature Id="FlymasterSync" Title="FlymasterSync" Level="1">
+        <ComponentRef Id="FlymasterSyncGUI.exe" />
+    </Feature>
+	</Product>
+</Wix>

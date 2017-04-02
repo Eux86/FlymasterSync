@@ -1,0 +1,14 @@
+﻿<Application
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="FlyMasterSyncGui.App"
+             ShutdownMode="OnExplicitShutdown"
+             StartupUri="Forms/FlightLog.xaml"
+             
+             DispatcherUnhandledException="App_OnDispatcherUnhandledException">
+             <!--StartupUri="MainWindow.xaml">-->
+    
+    <Application.Resources>
+        
+    </Application.Resources>
+</Application>

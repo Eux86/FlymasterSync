@@ -1,0 +1,84 @@
+﻿############################
+V. 0.9 Features
+----------------------------
+v Connect the Flymaster and get all the logs automatically syncronized with a local db
+v the local db will store info on every flight
+v The syncronization process can be stopped and resumed
+v All the track logs will be stored as igc files
+v Every flight log will be stored as a line in a csv file. This line will store the path to the related igc file
+v On the interface there will be a button to export (copy to a selected location) a track file
+----------------------------
+
+
+V. 0.9.0.4
+----------------------------
+v Check that a new PLACE doesn't overlap an existing place. 
+v If a new place overlaps an existing place, than ask if the user wants to change the place name or use the old one
+v import filght from IGC file
+
+
+V. 0.9.0.5 
+----------------------------
+v export to doarama + visualize track
+v correced visualization order of the synced flights in the flight log window
+
+V. 0.9.0.6
+----------------------------
+v show the flights in the logs organized by year and month
+
+V. 0.9.0.7
+----------------------------
+v Improvements to the flight log list apperance
+
+V. 0.9.0.9
+----------------------------
+v fix the crash when trying to sync flights with the flymaster connected but turned off
+
+V. 0.9.1.0
+----------------------------
+v ! Corrected an issue in the generation process of the IGC causing some altitudes being converted in the wrong way.
+v Corrected an issue causing some IGC having the same points registered twice (maybe)
+
+V. 0.9.1.1
+----------------------------
+v Refined some GUI element in all the forms
+v Added contextual help in some unclear forms. This will be reviewed and improved in future versions.
+
+V. 0.9.1.2
+----------------------------
+v Added logging system to debug crashes on user's machine
+
+V. 0.9.1.3
+----------------------------
+v! Temporary corrected a bug causing the application to crash on Win 7 systems. Check the "MyConverters.MonthConverter" class.		THIS SHOULD BE REVIEWED
+
+V. 0.9.1.4
+----------------------------
+v! Definitely corrected a bug causing the application to crash on Win 7 systems
+v added new Comment field to a flight entry in the log
+v New gui for syncing flights with the flymaster. Now the sync gui is integrated with the main form. Once you connect the flymaster to the system it is detected and if there are unsync flights, a button to sync appear.
+v Corrected a bug showing the month's name wrong (it showed the next month's name)
+
+V. 0.9.1.5
+----------------------------
+v Corrected a bug that gps tracks to be imported with errors
+v When importing a gps track, now a simple filter on the barometric and gps altitude values is applied. It cleans out some outlier that the flymaster sometimes registers.
+
+V. 0.9.1.6
+----------------------------
+v main GUI redesign
+
+NEXT VERSION: 
+------------------------------
+- new database system (sqlite?)
+- avoid overwrite of the settings file during update
+- exclude from import flights shorter than X minutes
+- fligths statistics
+  > max heigh
+  > max line distance
+  > take off altitude
+  > landing altitude
+  > max speed
+  > max sink
+  > max climb
+  > lenght

@@ -1,0 +1,136 @@
+﻿<Database:TracksDb xmlns:Database="clr-namespace:FlyMasterSyncGui.Database" xmlns:Data="clr-namespace:FlyMasterSerial.Data;assembly=FlyMasterSync" xmlns:System="clr-namespace:System;assembly=mscorlib">
+	<Database:TracksDb.Entries>
+		<Database:FlightLogDbEntry TakeOffName="Est hac leo proin" TrackFilePath="Eleifend dis arcu">
+			<Database:FlightLogDbEntry.FlightInfo>
+				<Data:FlightInfo Date="10/24/2015 01:22:50" ID="Dictumst morbi" Synced="True">
+					<Data:FlightInfo.Duration>
+						<System:TimeSpan/>
+					</Data:FlightInfo.Duration>
+				</Data:FlightInfo>
+			</Database:FlightLogDbEntry.FlightInfo>
+			<Database:FlightLogDbEntry.TakeOffPoint>
+				<Data:FlightLogPoint BaroAltitude="19" GPSAltitude="58" Longitude="Nulla elementum facilisi facilisis faucibus" Latitude="Convallis dignissim blandit diam" Presure="48" Time="10/24/2015 01:22:50"/>
+			</Database:FlightLogDbEntry.TakeOffPoint>
+		</Database:FlightLogDbEntry>
+		<Database:FlightLogDbEntry TakeOffName="Habitasse felis inceptos dapibus interdum" TrackFilePath="Elit conubia">
+			<Database:FlightLogDbEntry.FlightInfo>
+				<Data:FlightInfo Date="10/24/2015 01:22:50" ID="Commodo augue eget" Synced="False">
+					<Data:FlightInfo.Duration>
+						<System:TimeSpan/>
+					</Data:FlightInfo.Duration>
+				</Data:FlightInfo>
+			</Database:FlightLogDbEntry.FlightInfo>
+			<Database:FlightLogDbEntry.TakeOffPoint>
+				<Data:FlightLogPoint BaroAltitude="26" GPSAltitude="66" Longitude="Dolor fames enim fringilla cubilia" Latitude="Fermentum habitant" Presure="58" Time="10/24/2015 01:22:50"/>
+			</Database:FlightLogDbEntry.TakeOffPoint>
+		</Database:FlightLogDbEntry>
+		<Database:FlightLogDbEntry TakeOffName="Nibh magna auctor congue massa" TrackFilePath="Justo nullam lacus">
+			<Database:FlightLogDbEntry.FlightInfo>
+				<Data:FlightInfo Date="10/24/2015 01:22:50" ID="Ipsum mus egestas erat" Synced="True">
+					<Data:FlightInfo.Duration>
+						<System:TimeSpan/>
+					</Data:FlightInfo.Duration>
+				</Data:FlightInfo>
+			</Database:FlightLogDbEntry.FlightInfo>
+			<Database:FlightLogDbEntry.TakeOffPoint>
+				<Data:FlightLogPoint BaroAltitude="10" GPSAltitude="73" Longitude="Lobortis feugiat lorem" Latitude="Euismod eros aptent" Presure="80" Time="10/24/2015 01:22:50"/>
+			</Database:FlightLogDbEntry.TakeOffPoint>
+		</Database:FlightLogDbEntry>
+		<Database:FlightLogDbEntry TakeOffName="Metus nec himenaeos vestibulum potenti" TrackFilePath="Nascetur vestibulum dictum">
+			<Database:FlightLogDbEntry.FlightInfo>
+				<Data:FlightInfo Date="10/24/2015 01:22:50" ID="Gravida cursus iaculis" Synced="False">
+					<Data:FlightInfo.Duration>
+						<System:TimeSpan/>
+					</Data:FlightInfo.Duration>
+				</Data:FlightInfo>
+			</Database:FlightLogDbEntry.FlightInfo>
+			<Database:FlightLogDbEntry.TakeOffPoint>
+				<Data:FlightLogPoint BaroAltitude="98" GPSAltitude="52" Longitude="Pharetra natoque posuere parturient" Latitude="Adipiscing lacinia laoreet hendrerit" Presure="97" Time="10/24/2015 01:22:50"/>
+			</Database:FlightLogDbEntry.TakeOffPoint>
+		</Database:FlightLogDbEntry>
+		<Database:FlightLogDbEntry TakeOffName="Sit vel rhoncus nisl" TrackFilePath="Lectus libero parturient placerat">
+			<Database:FlightLogDbEntry.FlightInfo>
+				<Data:FlightInfo Date="10/24/2015 01:22:50" ID="Non nisi vestibulum adipiscing pretium" Synced="True">
+					<Data:FlightInfo.Duration>
+						<System:TimeSpan/>
+					</Data:FlightInfo.Duration>
+				</Data:FlightInfo>
+			</Database:FlightLogDbEntry.FlightInfo>
+			<Database:FlightLogDbEntry.TakeOffPoint>
+				<Data:FlightLogPoint BaroAltitude="33" GPSAltitude="62" Longitude="Litora vestibulum sem" Latitude="Per vestibulum ligula sed" Presure="60" Time="10/24/2015 01:22:50"/>
+			</Database:FlightLogDbEntry.TakeOffPoint>
+		</Database:FlightLogDbEntry>
+		<Database:FlightLogDbEntry TakeOffName="Mauris sed pulvinar viverra" TrackFilePath="Imperdiet malesuada">
+			<Database:FlightLogDbEntry.FlightInfo>
+				<Data:FlightInfo Date="10/24/2015 01:22:50" ID="Nam morbi" Synced="False">
+					<Data:FlightInfo.Duration>
+						<System:TimeSpan/>
+					</Data:FlightInfo.Duration>
+				</Data:FlightInfo>
+			</Database:FlightLogDbEntry.FlightInfo>
+			<Database:FlightLogDbEntry.TakeOffPoint>
+				<Data:FlightLogPoint BaroAltitude="96" GPSAltitude="62" Longitude="Nunc odio magnis mattis parturient" Latitude="Luctus penatibus sodales adipiscing porttitor" Presure="41" Time="10/24/2015 01:22:50"/>
+			</Database:FlightLogDbEntry.TakeOffPoint>
+		</Database:FlightLogDbEntry>
+		<Database:FlightLogDbEntry TakeOffName="Quis senectus montes tristique nostra" TrackFilePath="Aliquam integer orci">
+			<Database:FlightLogDbEntry.FlightInfo>
+				<Data:FlightInfo Date="10/24/2015 01:22:50" ID="Vestibulum neque" Synced="True">
+					<Data:FlightInfo.Duration>
+						<System:TimeSpan/>
+					</Data:FlightInfo.Duration>
+				</Data:FlightInfo>
+			</Database:FlightLogDbEntry.FlightInfo>
+			<Database:FlightLogDbEntry.TakeOffPoint>
+				<Data:FlightLogPoint BaroAltitude="67" GPSAltitude="81" Longitude="Vivamus tincidunt quam vestibulum" Latitude="Mollis quisque netus sagittis pede" Presure="20" Time="10/24/2015 01:22:50"/>
+			</Database:FlightLogDbEntry.TakeOffPoint>
+		</Database:FlightLogDbEntry>
+		<Database:FlightLogDbEntry TakeOffName="Cras adipiscing parturient" TrackFilePath="Platea urna">
+			<Database:FlightLogDbEntry.FlightInfo>
+				<Data:FlightInfo Date="10/24/2015 01:22:50" ID="Dis ornare sociosqu ultricies" Synced="False">
+					<Data:FlightInfo.Duration>
+						<System:TimeSpan/>
+					</Data:FlightInfo.Duration>
+				</Data:FlightInfo>
+			</Database:FlightLogDbEntry.FlightInfo>
+			<Database:FlightLogDbEntry.TakeOffPoint>
+				<Data:FlightLogPoint BaroAltitude="84" GPSAltitude="56" Longitude="Rutrum est" Latitude="Primis venenatis" Presure="30" Time="10/24/2015 01:22:50"/>
+			</Database:FlightLogDbEntry.TakeOffPoint>
+		</Database:FlightLogDbEntry>
+		<Database:FlightLogDbEntry TakeOffName="Semper sociis vestibulum leo" TrackFilePath="Suscipit aliquet hac">
+			<Database:FlightLogDbEntry.FlightInfo>
+				<Data:FlightInfo Date="10/24/2015 01:22:50" ID="Sapien aliquam duis nulla" Synced="True">
+					<Data:FlightInfo.Duration>
+						<System:TimeSpan/>
+					</Data:FlightInfo.Duration>
+				</Data:FlightInfo>
+			</Database:FlightLogDbEntry.FlightInfo>
+			<Database:FlightLogDbEntry.TakeOffPoint>
+				<Data:FlightLogPoint BaroAltitude="46" GPSAltitude="68" Longitude="Nunc amet" Latitude="Porta purus" Presure="81" Time="10/24/2015 01:22:50"/>
+			</Database:FlightLogDbEntry.TakeOffPoint>
+		</Database:FlightLogDbEntry>
+		<Database:FlightLogDbEntry TakeOffName="Class tempor" TrackFilePath="Ultrices vehicula mus ante">
+			<Database:FlightLogDbEntry.FlightInfo>
+				<Data:FlightInfo Date="10/24/2015 01:22:50" ID="Risus velit torquent taciti blandit" Synced="False">
+					<Data:FlightInfo.Duration>
+						<System:TimeSpan/>
+					</Data:FlightInfo.Duration>
+				</Data:FlightInfo>
+			</Database:FlightLogDbEntry.FlightInfo>
+			<Database:FlightLogDbEntry.TakeOffPoint>
+				<Data:FlightLogPoint BaroAltitude="88" GPSAltitude="71" Longitude="Volutpat maecenas arcu" Latitude="Tellus nec vitae" Presure="50" Time="10/24/2015 01:22:50"/>
+			</Database:FlightLogDbEntry.TakeOffPoint>
+		</Database:FlightLogDbEntry>
+	</Database:TracksDb.Entries>
+	<Database:TracksDb.Tracks>
+		<System:String>Nam vestibulum</System:String>
+		<System:String>Aliquam class integer cras sed</System:String>
+		<System:String>Quisque duis vivamus nunc</System:String>
+		<System:String>Curae maecenas curabitur</System:String>
+		<System:String>Praesent aenean amet ante</System:String>
+		<System:String>Adipiscing phasellus</System:String>
+		<System:String>Aliquam donec</System:String>
+		<System:String>Etiam fusce parturient lorem</System:String>
+		<System:String>Mauris aliquet</System:String>
+		<System:String>Accumsan consequat vestibulum bibendum</System:String>
+	</Database:TracksDb.Tracks>
+</Database:TracksDb>

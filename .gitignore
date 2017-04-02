@@ -1,0 +1,10 @@
+Library
+Temp
+*.pidb
+*.userprefs
+*.csprog
+*.orig
+bin/
+obj/
+Bin
+packages/*

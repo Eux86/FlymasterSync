@@ -1,0 +1,10 @@
+﻿<Window x:Class="FlyMasterSyncGui.Forms.UpdateInfo"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="UpdateInfo" Height="119" Width="351" WindowStartupLocation="CenterScreen" WindowStyle="ToolWindow" Closing="UpdateInfo_OnClosing" Topmost="True">
+    <Grid>
+        <TextBlock HorizontalAlignment="Left" Margin="10,22,0,0" TextWrapping="Wrap" Text="Downloading update... Please wait" VerticalAlignment="Top" Width="323"/>
+        <ProgressBar Height="10" Margin="10,52,10,0" VerticalAlignment="Top" IsIndeterminate="True"/>
+
+    </Grid>
+</Window>

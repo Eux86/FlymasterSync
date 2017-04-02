@@ -1,0 +1,438 @@
+﻿<Window x:Class="FlyMasterSyncGui.Forms.FlightLog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:FlyMasterSyncGui.Forms"
+        xmlns:formsUtils="clr-namespace:FlyMasterSyncGui.FormsUtils"
+        xmlns:system="clr-namespace:System;assembly=mscorlib"
+        Title="FlymasterSync" Height="375" Width="600" MaxWidth="600" MinWidth="600"
+        Icon="../Assets/icon.ico"
+        WindowStartupLocation="CenterScreen"
+        Closed="FlightLog_OnClosed"
+        Closing="FlightLog_OnClosing" Loaded="FlightLog_OnLoaded"
+        x:Name="Window">
+
+    <!--http://stackoverflow.com/questions/4266311/how-to-group-listboxitems-by-first-letter-in-wpf-using-xaml-->
+    <Window.Resources>
+         <CollectionViewSource x:Key="groupedFlights" Source="{Binding TracksDb.Entries}">
+            <CollectionViewSource.GroupDescriptions>
+                <PropertyGroupDescription PropertyName="FlightInfo.Date" Converter="{formsUtils:YearConverter}" />
+                <PropertyGroupDescription PropertyName="FlightInfo.Date" Converter="{formsUtils:MonthConverter}" />
+            </CollectionViewSource.GroupDescriptions>
+        </CollectionViewSource>
+
+        <DataTemplate x:Key="InnerTemplate">
+            <Grid Margin="0,10,0,0">
+                <Border VerticalAlignment="Bottom" Background="#FF9CA7B4" Padding="5,0,0,0">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding Path=Name}" VerticalAlignment="Top" Width="400" FontSize="19" Foreground="White" />
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                            <StackPanel.Resources>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="FontSize" Value="11"/>
+                                    <Setter Property="VerticalAlignment" Value="Bottom"/>
+                                    <Setter Property="Foreground" Value="White"/>
+                                </Style>
+                            </StackPanel.Resources>
+                            <StackPanel Margin="5">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="Flights: " FontWeight="Bold"/>
+                                    <TextBlock Text="{Binding Path=ItemCount}" Width="20"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="Flight Time: " FontWeight="Bold"/>
+                                    <TextBlock Text="{Binding Converter={formsUtils:GroupItemTotalHoursConverter}}" />
+                                </StackPanel>
+                            </StackPanel>
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+            </Grid>
+        </DataTemplate>
+
+        <DataTemplate x:Key="OuterTemplate">
+            <Grid>
+                <Border VerticalAlignment="Bottom" Padding="25,0,0,0">
+                    <StackPanel Orientation="Horizontal">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{Binding Path=Name}" FontSize="40" FontWeight="Bold" Foreground="#FF3A4157"/>
+                        </StackPanel>
+                        <StackPanel VerticalAlignment="Center" Margin="30,0,0,0">
+                            <StackPanel.Resources>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="FontSize" Value="15" />
+                                    <Setter Property="Foreground" Value="#FF3A4157" />
+                                </Style>
+                            </StackPanel.Resources>
+                            <StackPanel Orientation="Horizontal" Margin="0,0,0,2">
+                                <TextBlock Text="Flights: " FontWeight="Bold"/>
+                                <TextBlock Text="{Binding Path=ItemCount}" Width="20"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Flight Time: " FontWeight="Bold"/>
+                                <TextBlock Text="{Binding Converter={formsUtils:GroupItemTotalHoursConverter}}" />
+                            </StackPanel>
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+            </Grid>
+        </DataTemplate>
+
+
+        <formsUtils:MultiGroupTemplateSelector x:Key="MultiGroupTemplateSelector"
+                       InnerTemplate="{StaticResource InnerTemplate}"
+                       OuterTemplate="{StaticResource OuterTemplate}">
+        </formsUtils:MultiGroupTemplateSelector>
+
+    </Window.Resources>
+
+    <Window.DataContext>
+        <local:FlightLogVM/>
+    </Window.DataContext>
+
+    <DockPanel LastChildFill="True">
+        
+        <Menu DockPanel.Dock="Top" Height="20">
+            <MenuItem Header="File">
+                <MenuItem Header="Export selected" x:Name="ExportSelectedMenuItem" Click="ExportSelectedMenuItem_OnClick">
+                    <MenuItem.Style>
+                        <Style TargetType="MenuItem">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding ElementName=LogsListBox, Path=SelectedIndex}" Value="-1">
+                                    <Setter Property="IsEnabled" Value="False"></Setter>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </MenuItem.Style>
+                </MenuItem>
+                <MenuItem Header="Import IGC" x:Name="ImportMenuItem" Click="ImportMenuItem_OnClick"></MenuItem>
+                <Separator/>
+                <MenuItem Header="About" x:Name="AboutMenuItem" Click="AboutMenuItem_OnClick"></MenuItem>
+                <MenuItem Header="Settings" x:Name="SettingsMenuItem" Click="SettingsMenuItem_OnClick" ></MenuItem>
+                <Separator/>
+                <MenuItem Header="Exit" x:Name="ExMenuItem" Click="ExMenuItem_OnClick"></MenuItem>
+            </MenuItem>
+            <MenuItem Header="Places">
+                <MenuItem Header="Edit Place Name" x:Name="AddTakeoffMenuItem" Click="AddTakeoffMenuItem_OnClick">
+                    <MenuItem.Style>
+                        <Style TargetType="MenuItem">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding ElementName=LogsListBox, Path=SelectedIndex}" Value="-1">
+                                    <Setter Property="IsEnabled" Value="False"></Setter>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </MenuItem.Style>
+                </MenuItem>
+                <Separator/>
+                <MenuItem Header="Places List" x:Name="EditTakeoffsMenuItem" Click="EditTakeoffsMenuItem_OnClick" />
+            </MenuItem>
+            <MenuItem Header="Flights">
+                <!--<MenuItem Header="Sync" x:Name="SyncMenuItem" Click="SyncMenuItem_OnClick"/>
+                <Separator/>-->
+                <MenuItem Header="Remove Selected" x:Name="RemoveSelectedFlightMenuItem" Click="RemoveSelectedFlightMenuItem_OnClick">
+                    <MenuItem.Style>
+                        <Style TargetType="MenuItem">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding ElementName=LogsListBox, Path=SelectedIndex}" Value="-1">
+                                    <Setter Property="IsEnabled" Value="False"></Setter>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </MenuItem.Style>
+                </MenuItem>
+            </MenuItem>
+        </Menu>
+        
+        <DockPanel x:Name="SyncToolDockPanel" DockPanel.Dock="Top">
+            <Border Padding="2" BorderBrush="Transparent" BorderThickness="1" CornerRadius="5" Background="Transparent">
+                <Border.Style>
+                    <Style TargetType="Border">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding FlymasterConnected}" Value="True">
+                                <DataTrigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <ColorAnimation From="Transparent" To="#FF9CA7B4" Duration="0:0:1" Storyboard.TargetProperty="Background.Color"/>
+                                            <ThicknessAnimationUsingKeyFrames Storyboard.TargetProperty="Padding" BeginTime="00:00:00">
+                                                <SplineThicknessKeyFrame KeyTime="00:00:00" Value="2" />
+                                                <SplineThicknessKeyFrame KeyTime="00:00:01" Value="10" />
+                                            </ThicknessAnimationUsingKeyFrames>
+                                            <ThicknessAnimationUsingKeyFrames Storyboard.TargetProperty="Margin" BeginTime="00:00:00">
+                                                <SplineThicknessKeyFrame KeyTime="00:00:00" Value="0" />
+                                                <SplineThicknessKeyFrame KeyTime="00:00:01" Value="30,10,30,0" />
+                                            </ThicknessAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </DataTrigger.EnterActions>
+                                <DataTrigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <ColorAnimation From="#FF9CA7B4" To="Transparent" Duration="0:0:1" Storyboard.TargetProperty="Background.Color"/>
+                                            <ThicknessAnimationUsingKeyFrames Storyboard.TargetProperty="Padding" BeginTime="00:00:00">
+                                                <SplineThicknessKeyFrame KeyTime="00:00:00" Value="10" />
+                                                <SplineThicknessKeyFrame KeyTime="00:00:01" Value="2" />
+                                            </ThicknessAnimationUsingKeyFrames>
+                                            <ThicknessAnimationUsingKeyFrames Storyboard.TargetProperty="Margin" BeginTime="00:00:00">
+                                                <SplineThicknessKeyFrame KeyTime="00:00:00" Value="30,10,30,0" />
+                                                <SplineThicknessKeyFrame KeyTime="00:00:01" Value="0" />
+                                            </ThicknessAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </DataTrigger.ExitActions>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Border.Style>
+                <Grid>
+                    <DockPanel x:Name="HowToSyncDockPanel">
+                        <DockPanel.Style>
+                            <Style TargetType="DockPanel">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding FlymasterConnected}" Value="True">
+                                        <Setter Property="Visibility" Value="Collapsed" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </DockPanel.Style>
+                        <TextBlock Text="Connect and turn on your flymaster to start syncing..." Foreground="LightGray" HorizontalAlignment="Center" />
+                    </DockPanel>
+
+                    <StackPanel x:Name="SyncDockPanel" Orientation="Horizontal" >
+                        <StackPanel.Style>
+                            <Style TargetType="StackPanel">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding FlymasterConnected}" Value="False">
+                                        <Setter Property="Visibility" Value="Collapsed" />
+                                        <DataTrigger.ExitActions>
+                                            <BeginStoryboard>
+                                                <Storyboard>
+                                                    <DoubleAnimation BeginTime="0:0:0" Storyboard.TargetProperty="Opacity" From="0" To="0" Duration="0:0:1" />
+                                                    <DoubleAnimation BeginTime="0:0:1" Storyboard.TargetProperty="Opacity" From="0" To="1" Duration="0:0:1" />
+                                                </Storyboard>
+                                            </BeginStoryboard>
+                                        </DataTrigger.ExitActions>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </StackPanel.Style>
+                        <TextBlock Text="Connected to Flymaster " />
+                        <TextBlock Text="{Binding DeviceInfo.Name}"  />
+                        <TextBlock Text="{Binding DeviceInfo.Version}" Margin="5,0,5,0" />
+                        <!-- Syncing hyperlink -->
+                        <StackPanel Orientation="Horizontal">
+                            <StackPanel.Style>
+                                <Style TargetType="StackPanel">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding FlightsToSync}" Value="{x:Null}">
+                                            <Setter Property="Visibility" Value="Collapsed"></Setter>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding FlightsToSync.Count}" Value="0">
+                                            <Setter Property="Visibility" Value="Collapsed"></Setter>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding Syncing}" Value="True">
+                                            <Setter Property="Visibility" Value="Collapsed"></Setter>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </StackPanel.Style>
+                            <TextBlock Text="{Binding FlightsToSync.Count}"  />
+                            <TextBlock Text="flights to " Margin="5,0,0,0" />
+                            <TextBlock Margin="5,0,0,0">
+                        <Hyperlink x:Name="SyncHyperlink" NavigateUri="fake" RequestNavigate="SyncHyperlink_OnRequestNavigate">Sync</Hyperlink>
+                            </TextBlock>
+                        </StackPanel>
+                        <!-- Everything synced -->
+                        <StackPanel Orientation="Horizontal">
+                            <StackPanel.Style>
+                                <Style TargetType="StackPanel">
+                                    <Setter Property="Visibility" Value="Collapsed"></Setter>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding FlightsToSync.Count}" Value="0">
+                                            <Setter Property="Visibility" Value="Visible"></Setter>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding LoadingFlymasterData}" Value="True">
+                                            <Setter Property="Visibility" Value="Collapsed"></Setter>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </StackPanel.Style>
+                            <TextBlock Text="Synced" Margin="0,0,0,0" FontWeight="Bold" />
+                        </StackPanel>
+                        <!-- Flights loading state -->
+                        <StackPanel Orientation="Horizontal">
+                            <StackPanel.Style>
+                                <Style TargetType="StackPanel">
+                                    <Setter Property="Visibility" Value="Collapsed" />
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding LoadingFlymasterData}" Value="True">
+                                            <Setter Property="Visibility" Value="Visible" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </StackPanel.Style>
+                            <TextBlock Text="Loading data..." Foreground="LightGray" Margin="5,0,0,0" />
+                        </StackPanel>
+                        <!-- Syncing state -->
+                        <DockPanel>
+                            <DockPanel.Style>
+                                <Style TargetType="DockPanel">
+                                    <Setter Property="Visibility" Value="Collapsed" />
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Syncing}" Value="True">
+                                            <Setter Property="Visibility" Value="Visible" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </DockPanel.Style>
+                            <TextBlock DockPanel.Dock="Left" Text="Syncing: "></TextBlock>
+                            <TextBlock Text="{Binding SyncingProgress}" /><TextBlock Text=" %"></TextBlock>
+                        </DockPanel>
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </DockPanel>
+        
+        
+        <!--http://stackoverflow.com/questions/678690/how-can-i-create-a-group-footer-in-a-wpf-listview-gridview?lq=1-->
+        <ListBox x:Name="LogsListBox" ItemsSource="{Binding Source={StaticResource groupedFlights}}" SelectedItem="{Binding SelectedFlight}" DockPanel.Dock="Top" Margin="10" ScrollViewer.HorizontalScrollBarVisibility="Hidden">
+            <ListBox.ItemContainerStyle>
+                <Style TargetType="ListBoxItem">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                                <Border CornerRadius="8" BorderThickness="3" x:Name="ListItem"  >
+                                    <ContentPresenter />
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter TargetName="ListItem" Property="Background" Value="#FFDFF6F9"/>
+                                    </Trigger>
+                                    <Trigger Property="IsSelected" Value="True">
+                                        <Setter TargetName="ListItem" Property="Background" Value="PowderBlue"/>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </ListBox.ItemContainerStyle>
+            <ListBox.GroupStyle>
+                <GroupStyle HeaderTemplateSelector="{StaticResource MultiGroupTemplateSelector}"/>
+            </ListBox.GroupStyle>
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Width="539" x:Name="ItemContainerRootPanel">
+                        <StackPanel Orientation="Horizontal">
+                            <ToggleButton x:Name="ToggleCommentsButton" FontSize="9" Padding="2" Width="18" Height="18" HorizontalAlignment="Center">
+                                <ToggleButton.Style>
+                                    <Style TargetType="ToggleButton">
+                                        <Setter Property="Content" Value="▼"></Setter>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding='{Binding RelativeSource={RelativeSource Self}, Path=IsChecked}' Value='True'>
+                                                <Setter Property="Content" Value="▲"></Setter>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </ToggleButton.Style>
+                            </ToggleButton>
+                            <TextBlock Text="{Binding TakeOffName}" Margin="5,0,30,0" Width="150"/>
+                            <TextBlock Text="{Binding FlightInfo.Date, StringFormat='{}{0:dd a\\t hh:mm tt}'}" Margin="5,0,30,0" Width="100"/>
+                            <TextBlock Text="{Binding FlightInfo.Duration}" Margin="5,0,30,0" Width="50"/>
+                            <TextBlock Text="{Binding TrackFilePath}" Visibility="Collapsed"/>
+                            <StackPanel>
+                                <!--Doarama related actions -->
+                                <TextBlock Width="50" TextAlignment="Center" >
+                                    <TextBlock.Style>
+                                        <Style TargetType="TextBlock">
+                                            <Setter Property="Visibility" Value="Collapsed" />
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding DoaramaVisualizationId}" Value="{x:Null}">
+                                                    <Setter Property="Visibility" Value="Visible" />
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </TextBlock.Style>
+                                    <Hyperlink x:Name="UploadHyperlink" NavigateUri="fake" RequestNavigate="UploadHyperlink_OnRequestNavigate">
+                                        <TextBlock x:Name="UploadTextBlock">
+                                            <TextBlock.Style>
+                                                <Style TargetType="TextBlock">
+                                                    <Setter Property="Text" Value="Upload" />
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding ElementName=UploadHyperlink, Path=IsEnabled}" Value="false">
+                                                            <Setter Property="Text" Value="..." />
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </TextBlock.Style>
+                                        </TextBlock>
+                                    </Hyperlink>
+                                </TextBlock>
+                                <StackPanel Orientation="Horizontal" Width="50">
+                                    <StackPanel.Style>
+                                        <Style TargetType="StackPanel">
+                                            <Setter Property="Visibility" Value="Visible" />
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding DoaramaVisualizationId}" Value="{x:Null}">
+                                                    <Setter Property="Visibility" Value="Collapsed" />
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </StackPanel.Style>
+                                    <Button x:Name="UnlinkDoaramaButton" Height="18" Width="18" Padding="0" Background="Transparent" BorderBrush="Transparent" ToolTip="Unlinks the flight to the current Doarama visualization." Click="UnlinkDoaramaButton_OnClick">
+                                        <Image Source="../Assets/unlink.png"></Image>
+                                    </Button>
+                                    <TextBlock Width="32" TextAlignment="Center" >
+                                        <Hyperlink NavigateUri="localhost" RequestNavigate="Hyperlink_OnRequestNavigate">
+                                            <TextBlock Text="View" />
+                                        </Hyperlink>
+                                    </TextBlock>
+                                </StackPanel>
+                            </StackPanel>
+                        </StackPanel>
+                        <!-- More info panel -->
+                        <StackPanel Margin="0,5,10,0">
+                            <StackPanel.Style>
+                                <Style TargetType="StackPanel">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding ElementName=ToggleCommentsButton, Path=IsChecked}" Value="False">
+                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </StackPanel.Style>
+                            <TextBlock Text="Flight comments:" />
+                            <TextBox x:Name="FlightComentsTextBox" TextWrapping="Wrap" Margin="5,5,5,10" Text="{Binding Comments}" LostFocus="FlightCommentsTextBox_OnLostFocus">
+                                <TextBox.Style>
+                                    <Style TargetType="TextBox" xmlns:sys="clr-namespace:System;assembly=mscorlib">
+                                        <Style.Resources>
+                                            <VisualBrush x:Key="CueBannerBrush" AlignmentX="Left" AlignmentY="Center" Stretch="None">
+                                                <VisualBrush.Visual>
+                                                    <DockPanel LastChildFill="True">
+                                                        <Label DockPanel.Dock="Left" Content="So, how was your flight? ..." Foreground="LightGray" Background="White" Width="2000" />
+                                                    </DockPanel>
+                                                </VisualBrush.Visual>
+                                            </VisualBrush>
+                                        </Style.Resources>
+                                        <Style.Triggers>
+                                            <Trigger Property="Text" Value="{x:Static sys:String.Empty}">
+                                                <Setter Property="Background" Value="{StaticResource CueBannerBrush}" />
+                                            </Trigger>
+                                            <Trigger Property="Text" Value="{x:Null}">
+                                                <Setter Property="Background" Value="{StaticResource CueBannerBrush}" />
+                                            </Trigger>
+                                            <Trigger Property="IsKeyboardFocused" Value="True">
+                                                <Setter Property="Background" Value="White" />
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBox.Style>
+                            </TextBox>
+                        </StackPanel>
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        
+        
+    </DockPanel>
+</Window>
